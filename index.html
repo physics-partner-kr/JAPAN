@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>삿포로 모바일 일정표</title>
-    <!-- 웹앱처럼 보이게 하는 메타 태그 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/512px-Flag_of_Japan.svg.png">
@@ -19,13 +18,16 @@
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; }
-        @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.4); } 70% { box-shadow: 0 0 0 8px rgba(0, 122, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); } }
-        .animate-pulse-ring { animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        
+        /* 뱃지 내부 하얀색 깜빡임 효과 */
+        @keyframes pulse-ring-white { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6); } 70% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
+        .animate-pulse-ring-white { animation: pulse-ring-white 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
         @keyframes bounce-fun {
             0%, 100% { transform: translateY(0) scale(1); }
-            30% { transform: translateY(-8px) scale(1.1); }
+            30% { transform: translateY(-8px) scale(1.05); }
             50% { transform: translateY(0) scale(0.95); }
-            70% { transform: translateY(-4px) scale(1.05); }
+            70% { transform: translateY(-4px) scale(1.02); }
             80% { transform: translateY(0) scale(0.98); }
         }
         .animate-bounce-fun { animation: bounce-fun 0.5s cubic-bezier(0.28, 0.84, 0.42, 1); }
@@ -52,7 +54,7 @@
             </svg>
         );
 
-        // 일정 데이터 - 인천공항(T2)에 네이버 지도 맞춤 URL 추가 완료
+        // 일정 데이터 - 인천공항(T2)에 네이버 지도 및 길찾기 URL 완벽 적용
         const itineraryData = [
             { id: 0, day: "Day 1", date: "7/3 금", month: 7, dateNum: 3, events: [
                 { 
@@ -62,8 +64,8 @@
                     country: "KR", 
                     emoji: "🛫", 
                     mapQuery: "인천국제공항 제2여객터미널",
-                    customSearchUrl: "https://map.naver.com/p/search/인천국제공항%20제2여객터미널",
-                    customDirUrl: "https://map.naver.com/p/directions/-/인천국제공항%20제2여객터미널/-/-/"
+                    customSearchUrl: "https://map.naver.com/p/search/%EC%9D%B8%EC%B2%9C%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%20%EC%A0%9C2%EC%97%AC%EA%B0%9D%ED%84%B0%EB%AF%B8%EB%84%90/place/1559888035?c=15.00,0,0,0,dh&placePath=%3Fbk_query%253D%2525EC%25259D%2525B8%2525EC%2525B2%25259C%2525EA%2525B5%2525AD%2525EC%2525A0%25259C%2525EA%2525B3%2525B5%2525ED%252595%2525AD%252520%2525EC%2525A0%25259C2%2525EC%252597%2525AC%2525EA%2525B0%25259D%2525ED%252584%2525B0%2525EB%2525AF%2525B8%2525EB%252584%252590%2526entry%253Dbmp",
+                    customDirUrl: "https://map.naver.com/p/directions/-/3yUOnL,2AHXhy,%EC%9D%B8%EC%B2%9C%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%20%EC%A0%9C2%EC%97%AC%EA%B0%9D%ED%84%B0%EB%AF%B8%EB%84%90,1559888035,PLACE_POI/-/transit?c=15.00,0,0,0,dh"
                 },
                 { time: "08:30", title: "면세품 인도 및 식사", desc: "", country: "KR", noMap: true, emoji: "🛍️" },
                 { time: "10:15", title: "OZ174 출발", desc: "삿포로행 안전비행", isFlight: true, country: "KR", emoji: "✈️" },
@@ -117,15 +119,16 @@
         function App() {
             const [day, setDay] = useState(0);
             const [activeCard, setActiveCard] = useState(null);
-            // 🚨 배포용: 실제 현재 시간 연동
+            
+            // 🚨 실전 배포용: 실제 현재 시간 연동
             const [currentTime, setCurrentTime] = useState(new Date());
             const [isBouncing, setIsBouncing] = useState(false);
             const [deviceOS, setDeviceOS] = useState('unknown');
 
             useEffect(() => {
                 setDeviceOS(getOS());
-                const checkTime = () => setCurrentTime(new Date());
                 
+                const checkTime = () => setCurrentTime(new Date());
                 const initialNow = new Date();
                 const todayMonth = initialNow.getMonth() + 1;
                 const todayDate = initialNow.getDate();
@@ -149,9 +152,10 @@
             const dateNum = currentTime.getDate();
 
             let statusText = "";
-            let statusColor = "";
-            let dotColor = "";
+            let badgeClasses = "";
+            let showPulse = false;
 
+            // D-Day 뱃지 스타일 고도화 (입체감 있는 디자인)
             if (currentTime < tripDay1Start) {
                 const todayDateOnly = new Date(year, currentTime.getMonth(), dateNum);
                 const tripStartDateOnly = new Date(year, 6, 3);
@@ -159,37 +163,25 @@
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                 
                 if (diffDays > 0) {
-                    statusText = `여행 전 (D-${diffDays})`;
+                    statusText = `D-${diffDays} 설레는 여행 준비`;
+                    badgeClasses = "bg-[#FF2D55] text-white shadow-[0_4px_12px_rgba(255,45,85,0.35)] border border-white/20";
                 } else {
                     statusText = `오늘 출발! ✈️`;
+                    badgeClasses = "bg-[#FF9500] text-white shadow-[0_4px_12px_rgba(255,149,0,0.35)] border border-white/20";
+                    showPulse = true;
                 }
-                statusColor = "text-[#FF2D55] bg-[#FF2D55]/10";
-                dotColor = "bg-[#FF2D55]";
-            } else if (month === 7 && dateNum === 3) {
-                statusText = "여행 중 (1일차)";
-                statusColor = "text-[#007AFF] bg-[#007AFF]/10";
-                dotColor = "bg-[#007AFF]";
-            } else if (month === 7 && dateNum === 4) {
-                statusText = "여행 중 (2일차)";
-                statusColor = "text-[#007AFF] bg-[#007AFF]/10";
-                dotColor = "bg-[#007AFF]";
-            } else if (month === 7 && dateNum === 5) {
-                statusText = "여행 중 (3일차)";
-                statusColor = "text-[#007AFF] bg-[#007AFF]/10";
-                dotColor = "bg-[#007AFF]";
-            } else if (month === 7 && dateNum === 6) {
-                statusText = "여행 중 (마지막 날)";
-                statusColor = "text-[#007AFF] bg-[#007AFF]/10";
-                dotColor = "bg-[#007AFF]";
+            } else if (month === 7 && dateNum >= 3 && dateNum <= 6) {
+                let dayStr = dateNum === 6 ? "마지막 날" : `${dateNum - 2}일차`;
+                statusText = `여행 중 (${dayStr})`;
+                badgeClasses = "bg-[#007AFF] text-white shadow-[0_4px_12px_rgba(0,122,255,0.35)] border border-white/20";
+                showPulse = true;
             } else {
                 statusText = "여행 완료";
-                statusColor = "text-slate-500 bg-slate-200";
-                dotColor = "bg-slate-400";
+                badgeClasses = "bg-[#E5E5EA] text-[#8E8E93]";
             }
 
             const isToday = itineraryData[day].month === (currentTime.getMonth() + 1) && itineraryData[day].dateNum === currentTime.getDate();
             const currentMins = currentTime.getHours() * 60 + currentTime.getMinutes();
-            const isTripActive = statusText.includes("여행 중");
 
             const handleBadgeClick = () => {
                 if (isBouncing) return;
@@ -221,10 +213,10 @@
                             
                             <div 
                                 onClick={handleBadgeClick}
-                                className={`flex items-center gap-1.5 mb-1 px-2.5 py-1 rounded-full cursor-pointer select-none transition-colors ${statusColor} ${isBouncing ? 'animate-bounce-fun' : ''}`}
+                                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full cursor-pointer select-none transition-all duration-300 ${badgeClasses} ${isBouncing ? 'animate-bounce-fun' : ''}`}
                             >
-                                <div className={`w-2 h-2 rounded-full ${dotColor} ${isTripActive ? 'animate-pulse-ring' : ''}`}></div>
-                                <span className="text-[11px] font-bold tracking-wide">{statusText}</span>
+                                {showPulse && <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-ring-white"></div>}
+                                <span className="text-[12px] font-extrabold tracking-wide drop-shadow-sm">{statusText}</span>
                             </div>
                         </div>
                         
@@ -261,7 +253,7 @@
 
                             const query = encodeURIComponent(e.mapQuery || e.title);
                             
-                            // customSearchUrl, customDirUrl 이 명시되어 있으면 최우선으로 네이버 지도 등을 사용
+                            // customSearchUrl, customDirUrl 이 명시되어 있으면 최우선으로 적용 (인천공항 등)
                             const searchUrl = e.customSearchUrl ? e.customSearchUrl : (e.customUrl ? e.customUrl : `https://www.google.com/maps/search/?api=1&query=${query}`);
                             const dirUrl = e.customDirUrl ? e.customDirUrl : `https://www.google.com/maps/dir/?api=1&destination=${query}`;
 
