@@ -736,8 +736,10 @@
                 if (isFlight) {
                     playAirplaneSound();
                     triggerVibration(60);
-                    const nowDateObj = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
-                    if (isFlightDeparted(event.flightData, event.isPast, currentMins, nowDateObj, event.tabDateObj)) return;
+
+                    // 완전히 완료(과거)된 상태가 아니라면 언제든 터치로 끄고 켤 수 있게!
+                    if (event.isPast) return;
+
                     setFlightBoardingToggle(prev => {
                         const expanded = getBoardingExpanded(event, prev);
                         return { ...prev, [eventId]: !expanded };
@@ -758,11 +760,15 @@
 
             const getBoardingExpanded = (e, toggleMap = flightBoardingToggle) => {
                 if (!e.isFlight) return false;
-                const nowDateObj = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
-                if (isFlightDeparted(e.flightData, e.isPast, currentMins, nowDateObj, e.tabDateObj)) return false;
+
+                // 1. 터치(수동 조작) 상태를 가장 "먼저" 확인하도록 위로 올림!
                 const manual = toggleMap[e.uniqueEventId];
                 if (manual === true) return true;
                 if (manual === false) return false;
+
+                // 2. 터치 안 했을 때의 기본 자동 동작 (탑승시간엔 커지고, 출발하면 작아짐)
+                const nowDateObj = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
+                if (isFlightDeparted(e.flightData, e.isPast, currentMins, nowDateObj, e.tabDateObj)) return false;
                 return isInBoardingWindow(e.flightData, currentMins, nowDateObj, e.tabDateObj);
             };
 
