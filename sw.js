@@ -57,7 +57,8 @@ self.addEventListener('fetch', event => {
         return new Response('Offline', {
             status: 503,
             statusText: 'Offline'
-      });
+        });
+      }); // 👈 여기도 닫아줘야 합니다.
     })
   );
 });
