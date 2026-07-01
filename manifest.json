@@ -1,6 +1,6 @@
 {
   "name": "삿포로 여행 일정표",
-  "short_name": "삿포로여행",
+  "short_name": "삿포로 여행",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#F2F2F7",
