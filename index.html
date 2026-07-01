@@ -14,6 +14,22 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         body { background-color: #F2F2F7; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            flex-shrink: 0;
+            background: rgba(242, 242, 247, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .itinerary-scroll {
+            -webkit-overflow-scrolling: touch;
+            scroll-padding-top: 20px;
+        }
+        .itinerary-list {
+            padding-top: 20px;
+        }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -1176,8 +1192,8 @@
 
             return (
                 <>
-                <div className="max-w-md mx-auto min-h-screen relative p-4 pb-12 overflow-hidden" data-itinerary-root>
-                    <header className="mb-6 mt-4">
+                <div className="max-w-md mx-auto h-[100dvh] flex flex-col relative p-4 pb-0 overflow-hidden" data-itinerary-root>
+                    <header className="sticky-header">
                         <div className="flex justify-between items-end mb-5 px-1">
                             <h1 className="text-[26px] font-extrabold text-[#2E2E7C] tracking-tight pl-1">🇯🇵 삿포로 여행</h1>
                             
@@ -1207,7 +1223,8 @@
                         </div>
                     </header>
 
-                    <div className="animate-fade-in-up flex flex-col overflow-visible" key={day}>
+                    <div className="itinerary-scroll flex-1 min-h-0 overflow-y-auto overflow-x-hidden pb-12 scrollbar-hide">
+                    <div className="animate-fade-in-up itinerary-list flex flex-col overflow-visible" key={day}>
                         {renderedEvents.map((e, index) => {
                             const isKR = e.country === "KR";
                             const isJP = e.country === "JP";
@@ -1352,6 +1369,8 @@
                                 </div>
                             );
                         })}
+                    </div>
+
                     </div>
 
                     {showConfetti &&
