@@ -13,22 +13,59 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
+        html, body, #root {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: clip;
+        }
         body { background-color: #F2F2F7; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
         .sticky-header {
             position: sticky;
             top: 0;
             z-index: 40;
             flex-shrink: 0;
+            overflow: visible;
             background: rgba(242, 242, 247, 0.92);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
         }
         .itinerary-scroll {
+            overflow-y: auto;
+            overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
             scroll-padding-top: 20px;
+            box-sizing: border-box;
+            /* box-shadow 글로우가 잘리지 않도록 좌우 여유 공간 확보 (카드 폭은 유지) */
+            padding-left: 12px;
+            padding-right: 12px;
+            margin-left: -12px;
+            margin-right: -12px;
+            width: calc(100% + 24px);
         }
         .itinerary-list {
             padding-top: 20px;
+            overflow: visible;
+        }
+        .itinerary-app {
+            width: calc(100% - 24px);
+            max-width: 28rem;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+            overflow-x: visible;
+        }
+        [data-itinerary-root] {
+            width: 100%;
+            overflow: visible;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .schedule-row {
+            overflow: visible;
+        }
+        .schedule-card-col {
+            min-width: 0;
+            overflow: visible;
         }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
@@ -155,6 +192,11 @@
         /* ✈️ 탑승권 Boarding Pass 확장 */
         .flight-ticket-root {
             will-change: transform;
+            overflow: visible;
+        }
+        .flight-ticket-inner {
+            overflow: hidden;
+            border-radius: inherit;
         }
         .flight-ticket-root.is-boarding-expanded {
             z-index: 30;
@@ -696,7 +738,7 @@
                     const cardRight = el.getBoundingClientRect().right;
                     const root = el.closest('[data-itinerary-root]');
                     const minLeft = root
-                        ? root.getBoundingClientRect().left + 16
+                        ? root.getBoundingClientRect().left + parseFloat(getComputedStyle(root).paddingLeft)
                         : cardRight - cardWidth;
                     const maxScale = (cardRight - minLeft) / cardWidth;
                     const scale = Math.min(TARGET_SCALE, Math.max(1, maxScale));
@@ -753,13 +795,14 @@
             return (
                 <div
                     ref={ticketRef}
-                    className={`flight-ticket-root relative w-full rounded-[20px] overflow-hidden h-full ${ticketSurfaceClass} ${isBoardingExpanded ? 'is-boarding-expanded' : ''} ${isPast ? 'scale-[0.98]' : ''}`}
+                    className={`flight-ticket-root relative w-full rounded-[20px] h-full ${ticketSurfaceClass} ${isBoardingExpanded ? 'is-boarding-expanded' : ''} ${isPast ? 'scale-[0.98]' : ''}`}
                     style={{
                         transformOrigin: 'right top',
                         transform: expandTransform,
                         transition: 'transform 400ms cubic-bezier(0.25, 0.1, 0.25, 1), opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1)',
                     }}
                 >
+                    <div className="flight-ticket-inner h-full">
                     <div className="h-[5px] w-full" 
                         style={{ 
                             background: isPast 
@@ -851,6 +894,7 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
             );
         };
@@ -891,7 +935,7 @@
             };
 
             return (
-                <div className="relative flex-1" style={{ touchAction: 'pan-y' }}>
+                <div className="relative flex-1 min-w-0 overflow-visible schedule-card-col" style={{ touchAction: 'pan-y' }}>
                     {!e.isPast && translateX > 5 && (
                         <div className="absolute inset-y-0 left-0 bg-[#34C759] rounded-[20px] flex items-center pl-4 text-white font-black text-[13px] tracking-wide w-full shadow-inner opacity-90">
                             ✓ 완료 처리
@@ -910,7 +954,7 @@
                             transform: `translateX(${translateX}px)`, 
                             transition: isSwiping ? 'none' : 'transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1)' 
                         }}
-                        className="h-full w-full"
+                        className="h-full w-full overflow-visible"
                     >
                         {children}
                     </div>
@@ -1192,10 +1236,10 @@
 
             return (
                 <>
-                <div className="max-w-md mx-auto h-[100dvh] flex flex-col relative p-4 pb-0 overflow-hidden" data-itinerary-root>
+                <div className="itinerary-app h-[100dvh] flex flex-col pt-4 pb-0" data-itinerary-root>
                     <header className="sticky-header">
-                        <div className="flex justify-between items-end mb-5 px-1">
-                            <h1 className="text-[26px] font-extrabold text-[#2E2E7C] tracking-tight pl-1">🇯🇵 삿포로 여행</h1>
+                        <div className="flex justify-between items-end mb-5">
+                            <h1 className="text-[26px] font-extrabold text-[#2E2E7C] tracking-tight">🇯🇵 삿포로 여행</h1>
                             
                             <div 
                                 onClick={handleBadgeClick}
@@ -1223,7 +1267,7 @@
                         </div>
                     </header>
 
-                    <div className="itinerary-scroll flex-1 min-h-0 overflow-y-auto overflow-x-hidden pb-12 scrollbar-hide">
+                    <div className="itinerary-scroll flex-1 min-h-0 pb-12 scrollbar-hide">
                     <div className="animate-fade-in-up itinerary-list flex flex-col overflow-visible" key={day}>
                         {renderedEvents.map((e, index) => {
                             const isKR = e.country === "KR";
@@ -1263,7 +1307,7 @@
                             return (
                                 <div 
                                     key={e.uniqueEventId} 
-                                    className={`flex gap-3 relative py-3 cursor-pointer group ${e.isFlight && isBoardingExpanded ? 'flight-row-expanded' : ''} ${isManuallyActive ? 'animate-bounce-fun' : ''}`}
+                                    className={`schedule-row flex gap-3 relative py-3 cursor-pointer group overflow-visible ${e.isFlight && isBoardingExpanded ? 'flight-row-expanded' : ''} ${isManuallyActive ? 'animate-bounce-fun' : ''}`}
                                     style={e.isFlight ? {
                                         paddingBottom: 12 + flightExtraSpace,
                                         transition: 'padding-bottom 400ms cubic-bezier(0.25, 0.1, 0.25, 1)',
@@ -1304,7 +1348,7 @@
                                                 onExpandSpaceChange={handleFlightExpandSpace}
                                             />
                                         ) : (
-                                            <div className={`relative p-4 rounded-[20px] transition-all duration-200 ease-out h-full ${e.isPast ? 'bg-slate-50/60 border border-slate-100 shadow-none opacity-40 scale-[0.98]' : (isActive ? `bg-white scale-[1.02] ${themeFocusClass} z-20` : 'bg-white scale-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-slate-100 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]')}`}>
+                                            <div className={`relative p-4 rounded-[20px] transition-all duration-200 ease-out h-full ${e.isPast ? 'bg-slate-50/60 border border-slate-100 shadow-none opacity-40 scale-[0.98]' : (isActive ? `bg-white ${themeFocusClass} z-20` : 'bg-white scale-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-slate-100 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]')}`}>
                                                 
                                                 {e.isNow && !e.isPast && (
                                                     <div className={`absolute top-3 right-4 ${themeBg} text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-sm z-30 animate-pulse-white`}>
