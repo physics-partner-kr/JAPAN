@@ -1,12 +1,16 @@
-const CACHE_NAME = 'sapporo-itinerary-v3'; // 버전을 올려서 폰이 새 코드를 인식하게 만듭니다.
+const CACHE_NAME = 'sapporo-itinerary-v4'; // 버전을 올려서 폰이 새 코드를 인식하게 만듭니다.
 
 // 1. 꼭 필요한 핵심 파일만 먼저 확실하게 저장!
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
+
   './icon-192.png',
-  './icon-512.png'
+  './icon-512.png',
+
+  './apple-touch-icon.png',
+  './favicon.ico'
 ];
 
 self.addEventListener('install', event => {
@@ -28,6 +32,8 @@ self.addEventListener('activate', event => {
       })
     ))
   );
+
+  self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
@@ -47,8 +53,10 @@ self.addEventListener('fetch', event => {
           });
         }
         return networkResponse;
-      }).catch(() => {
-        console.log('오프라인 상태이며 캐시에 파일이 없습니다.');
+      .catch(() => {
+        return new Response('Offline', {
+            status: 503,
+            statusText: 'Offline'
       });
     })
   );
