@@ -333,8 +333,8 @@
                     time: "14:30", title: "귀국 비행기 탑승 (OZ173)", desc: "", country: "JP", noMap: true, emoji: "✈️",
                     isFlight: true,
                     flightData: {
-                        dep: { city: "삿포로 / 치토세", code: "CTS", time: "14:30", term: "국제선" },
-                        arr: { city: "서울 / 인천", code: "ICN", time: "17:45", term: "터미널1" },
+                        dep: { city: "삿포로 / 치토세", code: "CTS", time: "14:30", term: "터미널2" },
+                        arr: { city: "서울 / 인천", code: "ICN", time: "17:45", term: "터미널2" },
                         duration: "3시간15분", type: "직항", flightNo: "OZ173", aircraft: "A330"
                     }
                 } 
@@ -388,10 +388,10 @@
 
             if (isPast) {
                 progress = 100; 
-                durationLabel = "비행 완료 🛬";
+                durationLabel = "비행 완료";
             } else if (nowDateObj > tabDateObj) {
                 progress = 100; 
-                durationLabel = "비행 완료 🛬";
+                durationLabel = "비행 완료";
             } else if (nowDateObj < tabDateObj) {
                 progress = 0; 
             } else {
@@ -401,7 +401,7 @@
                 
                 if (currentMins >= arrMins) {
                     progress = 100; 
-                    durationLabel = "비행 완료 🛬";
+                    durationLabel = "비행 완료";
                 } else if (currentMins <= depMins) {
                     progress = 0; 
                 } else {
@@ -409,11 +409,11 @@
                     progress = (elapsed / (arrMins - depMins)) * 100; 
                     
                     if (elapsed === 0) {
-                        durationLabel = "이륙 준비 🛫";
+                        durationLabel = "이륙 준비";
                     } else {
                         const hours = Math.floor(elapsed / 60);
                         const mins = elapsed % 60;
-                        durationLabel = hours > 0 ? `${hours}시간 ${mins}분 경과 ✈️` : `${mins}분 경과 ✈️`;
+                        durationLabel = hours > 0 ? `${hours}시간 ${mins}분 경과` : `${mins}분 경과`;
                     }
                 }
             }
@@ -651,6 +651,7 @@
                 if (month === 7 && dateNum === 3 && currentMins >= 840) triggerOnce("trip_sakura", setShowSakura, 10000, "ようこそ\n北海道！", 8000);
                 if (month === 7 && dateNum === 3 && currentMins >= 1080) triggerOnce("trip_beer_d1", setShowBeer, 3500, "かんぱーい!");
                 if (month === 7 && dateNum === 4 && currentMins >= 1350) triggerOnce("trip_beer_d2", setShowBeer, 3500, "かんぱーい!");
+                if (month === 7 && dateNum === 5 && currentMins >= 1050) triggerOnce("trip_beer_d3_sushi", setShowBeer, 3500, "스시엔 나마비루!🍣🍻");
                 if (month === 7 && dateNum === 5 && currentMins >= 1080) triggerOnce("trip_beer_d3", setShowBeer, 3500, "かんぱーい!");
                 if (month === 7 && dateNum === 6 && currentMins >= 870) triggerOnce("trip_depart_jp", setShowPlaneTakeoff, 3200, "日本、\nまたね🥲");
                 if (month === 7 && dateNum === 6 && currentMins >= 1065) triggerOnce("trip_landing", setShowPlaneLanding, 3200, "김치찌개\n땡기누..🤤🍲");
