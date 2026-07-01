@@ -334,8 +334,8 @@
                     isFlight: true,
                     flightData: {
                         dep: { city: "삿포로 / 치토세", code: "CTS", time: "14:30", term: "국제선" },
-                        arr: { city: "서울 / 인천", code: "ICN", time: "17:30", term: "터미널1" },
-                        duration: "3시간00분", type: "직항", flightNo: "OZ173", aircraft: "B777"
+                        arr: { city: "서울 / 인천", code: "ICN", time: "17:45", term: "터미널1" },
+                        duration: "3시간00분", type: "직항", flightNo: "OZ173", aircraft: "A330"
                     }
                 } 
             ]}
@@ -653,7 +653,7 @@
                 if (month === 7 && dateNum === 4 && currentMins >= 1350) triggerOnce("trip_beer_d2", setShowBeer, 3500, "かんぱーい!");
                 if (month === 7 && dateNum === 5 && currentMins >= 1080) triggerOnce("trip_beer_d3", setShowBeer, 3500, "かんぱーい!");
                 if (month === 7 && dateNum === 6 && currentMins >= 870) triggerOnce("trip_depart_jp", setShowPlaneTakeoff, 3200, "日本、\nまたね🥲");
-                if (month === 7 && dateNum === 6 && currentMins >= 1050) triggerOnce("trip_landing", setShowPlaneLanding, 3200, "김치찌개\n땡기누..🤤🍲");
+                if (month === 7 && dateNum === 6 && currentMins >= 1065) triggerOnce("trip_landing", setShowPlaneLanding, 3200, "김치찌개\n땡기누..🤤🍲");
             }, [currentTime]);
 
             // 👉 사용자가 스와이프로 복구할 때 아예 키를 지워서 시스템(시간) 판정으로 돌아가게 수정
@@ -707,7 +707,7 @@
                 } else if (dateNum === 6) {
                     if (currentMins < 14 * 60 + 30) { 
                         statusText = "삿포로 4일차";
-                    } else if (currentMins < 17 * 60 + 30) { 
+                    } else if (currentMins < 17 * 60 + 45) { 
                         statusText = "한국 드가자~ 🛬";
                         badgeClasses = "bg-[#FF9500] text-white shadow-[0_4px_12px_rgba(255,149,0,0.35)] border border-white/10";
                     } else {
