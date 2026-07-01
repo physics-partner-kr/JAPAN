@@ -17,27 +17,392 @@
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; }
+        .animate-fade-in-up { animation: fadeInUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; }
         
-        /* 뱃지 내부 하얀색 깜빡임 효과 */
-        @keyframes pulse-ring-white { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6); } 70% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
-        .animate-pulse-ring-white { animation: pulse-ring-white 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse-ring_white { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6); } 70% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
+        .animate-pulse-white { animation: pulse-ring_white 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+        @keyframes pulse-ring-blue { 0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.4); } 70% { box-shadow: 0 0 0 8px rgba(0, 122, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); } }
+        @keyframes pulse-ring-red { 0% { box-shadow: 0 0 0 0 rgba(255, 45, 85, 0.4); } 70% { box-shadow: 0 0 0 8px rgba(255, 45, 85, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 45, 85, 0); } }
+        .animate-pulse-blue { animation: pulse-ring-blue 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .animate-pulse-red { animation: pulse-ring-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+        /* 🇯🇵 JP Focus Card — 흰 카드에서 은은하게 새어 나오는 블루 글로우 */
+        @keyframes focus-glow-blue {
+            0%, 100% {
+                box-shadow:
+                    0 0 0 1px rgba(0, 122, 255, 0.20),
+                    0 2px 18px rgba(0, 122, 255, 0.10),
+                    0 0 32px rgba(0, 122, 255, 0.12),
+                    0 0 52px rgba(0, 122, 255, 0.05);
+            }
+            50% {
+                box-shadow:
+                    0 0 0 1px rgba(0, 122, 255, 0.26),
+                    0 4px 24px rgba(0, 122, 255, 0.14),
+                    0 0 44px rgba(0, 122, 255, 0.16),
+                    0 0 64px rgba(0, 122, 255, 0.07);
+            }
+        }
+        .focus-card-blue {
+            border: 1.5px solid rgba(0, 122, 255, 0.24);
+            background: #fff;
+            animation: focus-glow-blue 2.8s ease-in-out infinite;
+        }
+        .focus-emoji-blue {
+            border-color: rgba(0, 122, 255, 0.26) !important;
+            box-shadow:
+                0 0 0 1px rgba(0, 122, 255, 0.08),
+                0 0 16px rgba(0, 122, 255, 0.12);
+        }
+
+        /* 🇰🇷 KR Focus Card — 흰 카드에서 은은하게 새어 나오는 레드 글로우 */
+        @keyframes focus-glow-red {
+            0%, 100% {
+                box-shadow:
+                    0 0 0 1px rgba(255, 45, 85, 0.20),
+                    0 2px 18px rgba(255, 45, 85, 0.10),
+                    0 0 32px rgba(255, 45, 85, 0.12),
+                    0 0 52px rgba(255, 45, 85, 0.05);
+            }
+            50% {
+                box-shadow:
+                    0 0 0 1px rgba(255, 45, 85, 0.26),
+                    0 4px 24px rgba(255, 45, 85, 0.14),
+                    0 0 44px rgba(255, 45, 85, 0.16),
+                    0 0 64px rgba(255, 45, 85, 0.07);
+            }
+        }
+        .focus-card-red {
+            border: 1.5px solid rgba(255, 45, 85, 0.24);
+            background: #fff;
+            animation: focus-glow-red 2.8s ease-in-out infinite;
+        }
+        .focus-emoji-red {
+            border-color: rgba(255, 45, 85, 0.26) !important;
+            box-shadow:
+                0 0 0 1px rgba(255, 45, 85, 0.08),
+                0 0 16px rgba(255, 45, 85, 0.12);
+        }
+
+        /* ✈️ 아시아나항공 — 브랜드 컬러가 은은하게 번지는 Boarding Pass 글로우 */
+        @keyframes edge-glow-asiana {
+            0%, 100% {
+                box-shadow:
+                    0 0 0 1px rgba(255, 255, 255, 0.9),
+                    0 1px 14px rgba(196, 11, 64, 0.07),
+                    0 0 30px rgba(196, 11, 64, 0.09),
+                    0 0 56px rgba(196, 11, 64, 0.04);
+            }
+            16% {
+                box-shadow:
+                    0 0 0 1px rgba(245, 245, 247, 0.92),
+                    0 4px 32px rgba(238, 29, 37, 0.18),
+                    0 0 56px rgba(238, 29, 37, 0.22),
+                    0 0 88px rgba(238, 29, 37, 0.10);
+            }
+            33% {
+                box-shadow:
+                    0 0 0 1px rgba(245, 245, 247, 0.92),
+                    0 4px 32px rgba(250, 190, 60, 0.18),
+                    0 0 56px rgba(250, 190, 60, 0.22),
+                    0 0 88px rgba(250, 190, 60, 0.10);
+            }
+            50% {
+                box-shadow:
+                    0 0 0 1px rgba(245, 245, 247, 0.92),
+                    0 4px 32px rgba(172, 163, 154, 0.15),
+                    0 0 56px rgba(172, 163, 154, 0.19),
+                    0 0 88px rgba(172, 163, 154, 0.08);
+            }
+            66% {
+                box-shadow:
+                    0 0 0 1px rgba(245, 245, 247, 0.92),
+                    0 4px 32px rgba(90, 62, 152, 0.18),
+                    0 0 56px rgba(90, 62, 152, 0.22),
+                    0 0 88px rgba(90, 62, 152, 0.10);
+            }
+            83% {
+                box-shadow:
+                    0 0 0 1px rgba(245, 245, 247, 0.92),
+                    0 4px 32px rgba(46, 46, 124, 0.18),
+                    0 0 56px rgba(46, 46, 124, 0.22),
+                    0 0 88px rgba(46, 46, 124, 0.10);
+            }
+        }
+        .animate-edge-asiana {
+            border: 1px solid rgba(229, 229, 234, 0.85);
+            background: #fff;
+            animation: edge-glow-asiana 4.5s ease-in-out infinite;
+        }
+
+        /* ✈️ 탑승권 Boarding Pass 확장 */
+        .flight-ticket-root {
+            will-change: transform;
+        }
+        .flight-ticket-root.is-boarding-expanded {
+            z-index: 30;
+        }
+        .flight-row-expanded {
+            z-index: 30;
+            position: relative;
+        }
+        .flight-timeline-col {
+            transition: opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+                        transform 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .flight-timeline-col.is-covered {
+            opacity: 0;
+            transform: scale(0.92);
+            pointer-events: none;
+        }
 
         @keyframes bounce-fun {
-            0%, 100% { transform: translateY(0) scale(1); }
-            30% { transform: translateY(-8px) scale(1.05); }
-            50% { transform: translateY(0) scale(0.95); }
-            70% { transform: translateY(-4px) scale(1.02); }
-            80% { transform: translateY(0) scale(0.98); }
+            0%   { transform: scale(1, 1) translateY(0); }
+            15%  { transform: scale(1.12, 0.88) translateY(0); }
+            35%  { transform: scale(0.88, 1.12) translateY(-10px); }
+            55%  { transform: scale(1.04, 0.96) translateY(0); }
+            70%  { transform: scale(0.97, 1.03) translateY(-3px); }
+            100% { transform: scale(1, 1) translateY(0); }
         }
-        .animate-bounce-fun { animation: bounce-fun 0.5s cubic-bezier(0.28, 0.84, 0.42, 1); }
+        .animate-bounce-fun { animation: bounce-fun 0.4s cubic-bezier(0.28, 0.84, 0.42, 1); }
+
+        /* ===========================
+   🎆 폭죽
+=========================== */
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-120px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.confetti-piece {
+    position: fixed;
+    top: -30px;
+    width: 8px;
+    height: 16px;
+    border-radius: 3px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: confettiFall 2.5s ease-out forwards;
+}
+
+
+/* ===========================
+   🌸 벚꽃
+=========================== */
+@keyframes sakuraFall {
+    0% {
+        transform: translateY(-8vh) translateX(0) rotate(-2deg);
+        opacity: 0;
+    }
+    10% { opacity: 0.7; }
+    18% {
+        opacity: 1;
+        transform: translateY(10vh) translateX(10px) rotate(3deg);
+    }
+    32% {
+        transform: translateY(26vh) translateX(26px) rotate(5deg);
+    }
+    48% {
+        transform: translateY(42vh) translateX(6px) rotate(-1deg);
+    }
+    62% {
+        transform: translateY(58vh) translateX(-22px) rotate(-5deg);
+    }
+    76% {
+        transform: translateY(74vh) translateX(16px) rotate(4deg);
+    }
+    90% {
+        opacity: 1;
+        transform: translateY(92vh) translateX(-8px) rotate(-2deg);
+    }
+    100% {
+        transform: translateY(108vh) translateX(4px) rotate(1deg);
+        opacity: 0;
+    }
+}
+
+.sakura {
+    position: fixed;
+    top: -40px;
+    pointer-events: none;
+    z-index: 9999;
+    animation-name: sakuraFall;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-fill-mode: forwards;
+}
+
+
+/* ===========================
+   🍺 맥주 (건배)
+=========================== */
+.beer-cheers {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.beer-popup {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    line-height: 1;
+    opacity: 0;
+    animation-duration: 2.8s;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+}
+
+.beer-popup-left {
+    font-size: 74px;
+    animation-name: beerCheersLeft;
+}
+
+.beer-popup-right {
+    font-size: 88px;
+    animation-name: beerCheersRight;
+}
+
+.beer-popup-center {
+    font-size: 80px;
+    animation-name: beerCheersCenter;
+}
+
+@keyframes beerCheersLeft {
+    0%   { transform: translate(calc(-50% - 44vw), calc(-50% + 32vh)) scale(0.45) rotate(-18deg); opacity: 0; }
+    14%  { opacity: 1; }
+    44%  { transform: translate(calc(-50% - 11vw), calc(-50% + 2vh)) scale(1) rotate(10deg); opacity: 1; }
+    52%  { transform: translate(calc(-50% - 7vw), calc(-50% - 1vh)) scale(1.15) rotate(14deg); }
+    60%  { transform: translate(calc(-50% - 8vw), calc(-50%)) scale(1) rotate(10deg); }
+    100% { transform: translate(calc(-50% - 8vw), calc(-50% - 26vh)) scale(0.88) rotate(6deg); opacity: 0; }
+}
+
+@keyframes beerCheersRight {
+    0%   { transform: translate(calc(-50% + 44vw), calc(-50% + 32vh)) scale(0.45) rotate(18deg); opacity: 0; }
+    14%  { opacity: 1; }
+    44%  { transform: translate(calc(-50% + 11vw), calc(-50% + 2vh)) scale(1) rotate(-10deg); opacity: 1; }
+    52%  { transform: translate(calc(-50% + 7vw), calc(-50% - 1vh)) scale(1.15) rotate(-14deg); }
+    60%  { transform: translate(calc(-50% + 8vw), calc(-50%)) scale(1) rotate(-10deg); }
+    100% { transform: translate(calc(-50% + 8vw), calc(-50% - 26vh)) scale(0.88) rotate(-6deg); opacity: 0; }
+}
+
+@keyframes beerCheersCenter {
+    0%   { transform: translate(-50%, calc(-50% + 38vh)) scale(0.4); opacity: 0; }
+    14%  { opacity: 1; }
+    44%  { transform: translate(-50%, calc(-50% + 6vh)) scale(1); opacity: 1; }
+    52%  { transform: translate(-50%, calc(-50% + 1vh)) scale(1.15); }
+    60%  { transform: translate(-50%, calc(-50% + 2vh)) scale(1); }
+    100% { transform: translate(-50%, calc(-50% - 22vh)) scale(0.9); opacity: 0; }
+}
+
+
+/* ===========================
+   ✈️ 출발
+=========================== */
+@keyframes planeTakeoff {
+    0% {
+        transform: translate(-50%, 105vh) rotate(-14deg);
+        opacity: 1;
+    }
+    45% {
+        transform: translate(-50%, 42vh) rotate(2deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -25vh) rotate(10deg);
+        opacity: 1;
+    }
+}
+
+.plane-takeoff {
+    position: fixed;
+    left: 50%;
+    top: 0;
+    font-size: 130px;
+    line-height: 1;
+    z-index: 10001;
+    pointer-events: none;
+    will-change: transform;
+    animation: planeTakeoff 3s ease-in forwards;
+}
+
+
+/* ===========================
+   ✈️ 착륙
+=========================== */
+@keyframes planeLanding {
+    0% {
+        transform: translate(-50%, -25vh) rotate(10deg);
+        opacity: 1;
+    }
+    55% {
+        transform: translate(-50%, 42vh) rotate(2deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, 105vh) rotate(-14deg);
+        opacity: 1;
+    }
+}
+
+.plane-landing {
+    position: fixed;
+    left: 50%;
+    top: 0;
+    font-size: 130px;
+    line-height: 1;
+    z-index: 10001;
+    pointer-events: none;
+    will-change: transform;
+    animation: planeLanding 3s ease-out forwards;
+}
+
+/* ===========================
+   💬 이벤트 토스트
+=========================== */
+@keyframes toastFade {
+    0%   { opacity: 0; transform: translate(-50%, 12px) scale(0.96); }
+    15%  { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    78%  { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -10px) scale(0.98); }
+}
+
+.event-toast {
+    position: fixed;
+    left: 50%;
+    top: 38%;
+    z-index: 10000;
+    max-width: 88vw;
+    padding: 18px 32px;
+    border-radius: 18px;
+    background: rgba(0, 0, 0, 0.52);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-align: center;
+    line-height: 1.35;
+    pointer-events: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    animation: toastFade 1.8s ease forwards;
+}
+
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useRef, useLayoutEffect, useCallback } = React;
 
         const MapPin = ({ size = 18, strokeWidth = 2.5 }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -45,16 +410,177 @@
         const DirectionsIcon = ({ size = 18, strokeWidth = 2.5 }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>
         );
-        const PlaneIcon = ({ size = 18, strokeWidth = 2.5 }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.6L3 8l6 5.8L7 16l-3.5-1L2 16l4.5 4.5 1.5-1.5z"/></svg>
-        );
-        const CameraIcon = ({ size = 24, strokeWidth = 2.5 }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
-                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>
-            </svg>
-        );
 
-        // 일정 데이터 - 인천공항(T2)에 네이버 지도 및 길찾기 URL 완벽 적용
+        // 🎵 통합 오디오 매니저
+        let audioCtx = null;
+        const initAudio = () => {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) audioCtx = new AudioContextClass();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+        };
+
+        // 💧 1. 가볍고 경쾌한 물방울 소리 (일반 카드)
+        const playBubbleSound = () => {
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine'; 
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.05);
+            } catch(e) {}
+        };
+
+        // 🔘 2. 날짜 탭 전용 '또당~!' 소리
+        const playTabSound = () => {
+            try {
+                initAudio();
+                
+                // 1. '또' 소리 (살짝 낮고 둥근 음)
+                const osc1 = audioCtx.createOscillator();
+                const gain1 = audioCtx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(500, audioCtx.currentTime);
+                gain1.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                osc1.connect(gain1); gain1.connect(audioCtx.destination);
+                osc1.start(); osc1.stop(audioCtx.currentTime + 0.05);
+
+                // 2. '당~' 소리 (0.05초 뒤에 약간 더 높은 음으로 경쾌하게)
+                setTimeout(() => {
+                    if(!audioCtx) return;
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.type = 'sine';
+                    osc2.frequency.setValueAtTime(750, audioCtx.currentTime); // 500 -> 750으로 상승
+                    gain2.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12); // 살짝 여운을 줌
+                    osc2.connect(gain2); gain2.connect(audioCtx.destination);
+                    osc2.start(); osc2.stop(audioCtx.currentTime + 0.12);
+                }, 50);
+                
+            } catch(e) {}
+        };
+
+        // 📍 3. 지도/길찾기 전용 '띠딩!' 사운드
+        const playMapSound = () => {
+            try {
+                initAudio();
+                const osc1 = audioCtx.createOscillator();
+                const gain1 = audioCtx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(800, audioCtx.currentTime);
+                gain1.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                osc1.connect(gain1); gain1.connect(audioCtx.destination);
+                osc1.start(); osc1.stop(audioCtx.currentTime + 0.05);
+
+                setTimeout(() => {
+                    if(!audioCtx) return;
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.type = 'sine';
+                    osc2.frequency.setValueAtTime(1200, audioCtx.currentTime);
+                    gain2.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                    osc2.connect(gain2); gain2.connect(audioCtx.destination);
+                    osc2.start(); osc2.stop(audioCtx.currentTime + 0.1);
+                }, 60);
+            } catch(e) {}
+        };
+
+        // ✈️ 4. 비행기 전용 '슈우웅~' 사운드
+        const playAirplaneSound = () => {
+            try {
+                initAudio();
+                const bufferSize = audioCtx.sampleRate * 0.6; 
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1; 
+                }
+                const noise = audioCtx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(200, audioCtx.currentTime);
+                filter.frequency.exponentialRampToValueAtTime(1500, audioCtx.currentTime + 0.3);
+                filter.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.6);
+                
+                const gain = audioCtx.createGain();
+                gain.gain.setValueAtTime(0, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.2); 
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6); 
+                
+                noise.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
+                noise.start();
+            } catch(e) {}
+        };
+
+		
+	// 👇👇 여기에 복사해서 붙여넣기 하세요! 👇👇
+        // 🌟 5. 상단 뱃지 전용 '뾰로롱~' 사운드
+        const playBadgeSound = () => {
+            try {
+                initAudio();
+                const freqs = [600, 800, 1200]; // 3단 콤보 고음
+                freqs.forEach((freq, index) => {
+                    setTimeout(() => {
+                        if (!audioCtx) return;
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                        osc.connect(gain); gain.connect(audioCtx.destination);
+                        osc.start(); osc.stop(audioCtx.currentTime + 0.15);
+                    }, index * 80); // 0.08초 간격으로 뾰-로-롱
+                });
+            } catch(e) {}
+        };
+
+        const triggerVibration = (duration = 30) => {
+            if (window.navigator && window.navigator.vibrate) {
+                window.navigator.vibrate(duration);
+            }
+        };
+
+        const timeToMinutes = (timeStr) => {
+            const [h, m] = timeStr.split(':').map(Number);
+            return h * 60 + m;
+        };
+
+        const isSameDay = (a, b) =>
+            a.getFullYear() === b.getFullYear() &&
+            a.getMonth() === b.getMonth() &&
+            a.getDate() === b.getDate();
+
+        const isFlightDeparted = (flightData, isPast, currentMins, nowDateObj, tabDateObj) => {
+            if (isPast) return true;
+            if (nowDateObj > tabDateObj) return true;
+            if (!isSameDay(nowDateObj, tabDateObj)) return false;
+            return currentMins >= timeToMinutes(flightData.dep.time);
+        };
+
+        const isInBoardingWindow = (flightData, currentMins, nowDateObj, tabDateObj) => {
+            if (!isSameDay(nowDateObj, tabDateObj)) return false;
+            const depMins = timeToMinutes(flightData.dep.time);
+            return currentMins >= depMins - 30 && currentMins < depMins;
+        };
+
+        // =========================================================
+        // 🧪 데이터 세팅 (실제 일정)
+        // =========================================================
+
+
         const itineraryData = [
             { id: 0, day: "Day 1", date: "7/3 금", month: 7, dateNum: 3, events: [
                 { 
@@ -65,10 +591,23 @@
                     emoji: "🛫", 
                     mapQuery: "인천국제공항 제2여객터미널",
                     customSearchUrl: "https://map.naver.com/p/search/%EC%9D%B8%EC%B2%9C%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%20%EC%A0%9C2%EC%97%AC%EA%B0%9D%ED%84%B0%EB%AF%B8%EB%84%90/place/1559888035?c=15.00,0,0,0,dh&placePath=%3Fbk_query%253D%2525EC%25259D%2525B8%2525EC%2525B2%25259C%2525EA%2525B5%2525AD%2525EC%2525A0%25259C%2525EA%2525B3%2525B5%2525ED%252595%2525AD%252520%2525EC%2525A0%25259C2%2525EC%252597%2525AC%2525EA%2525B0%25259D%2525ED%252584%2525B0%2525EB%2525AF%2525B8%2525EB%252584%252590%2526entry%253Dbmp",
-                    customDirUrl: "https://map.naver.com/p/directions/-/3yUOnL,2AHXhy,%EC%9D%B8%EC%B2%9C%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%20%EC%A0%9C2%EC%97%AC%EA%B0%9D%ED%84%B0%EB%AF%B8%EB%84%90,1559888035,PLACE_POI/-/transit?c=15.00,0,0,0,dh"
+                    hideDir: true 
                 },
                 { time: "08:30", title: "면세품 인도 및 식사", desc: "", country: "KR", noMap: true, emoji: "🛍️" },
-                { time: "10:15", title: "OZ174 출발", desc: "삿포로행 안전비행", isFlight: true, country: "KR", emoji: "✈️" },
+                { 
+                    time: "10:15", 
+                    title: "출국 비행기 탑승 (OZ174)", 
+                    desc: "", 
+                    country: "KR", 
+                    noMap: true, 
+                    emoji: "✈️",
+                    isFlight: true,
+                    flightData: {
+                        dep: { city: "서울 / 인천", code: "ICN", time: "10:15", term: "터미널2" },
+                        arr: { city: "삿포로 / 치토세", code: "CTS", time: "13:00", term: "터미널2" },
+                        duration: "2시간45분", type: "직항", flightNo: "OZ174", aircraft: "B777"
+                    }
+                }, 
                 { time: "14:00", title: "입국심사 및 숙소 이동", desc: "버스로 약 1시간 30분 소요", country: "JP", noMap: true, emoji: "🚌" },
                 { time: "15:00", title: "Randor Residential Hotel", desc: "체크인 및 짐 보관", country: "JP", mapQuery: "Randor Residential Hotel Sapporo Suites", emoji: "🏨" },
                 { time: "15:30", title: "점심식사: 스프카레 스아게+", desc: "브레이크 없음, 웨이팅 확인", country: "JP", mapQuery: "스프카레 스아게 플러스 삿포로", emoji: "🍛" },
@@ -100,45 +639,303 @@
                 { time: "08:00", title: "키타노구루메테이", desc: "카이센동 + 은대구된장구이", country: "JP", mapQuery: "키타노구루메 삿포로", emoji: "🐟" },
                 { time: "10:00", title: "공항 버스 탑승", desc: "", country: "JP", noMap: true, emoji: "🚌" },
                 { time: "11:30", title: "치토세 공항", desc: "라멘 가게들 모여있는 곳에서 콘스프라멘 먹기", country: "JP", mapQuery: "신치토세 공항 라멘도장", emoji: "🍜" },
-                { time: "14:30", title: "OZ173 출발", desc: "인천 도착", isFlight: true, country: "JP", emoji: "✈️" }
+                { 
+                    time: "14:30", 
+                    title: "귀국 비행기 탑승 (OZ173)", 
+                    desc: "", 
+                    country: "JP", 
+                    noMap: true, 
+                    emoji: "✈️",
+                    isFlight: true,
+                    flightData: {
+                        dep: { city: "삿포로 / 치토세", code: "CTS", time: "14:30", term: "국제선" },
+                        arr: { city: "서울 / 인천", code: "ICN", time: "17:30", term: "터미널1" },
+                        duration: "3시간00분", type: "직항", flightNo: "OZ173", aircraft: "B777"
+                    }
+                } 
             ]}
         ];
 
-        const timeToMinutes = (timeStr) => {
-            const [h, m] = timeStr.split(':').map(Number);
-            return h * 60 + m;
+        // 🎫 비행기 진행률 및 상태메시지 실시간 반영 커스텀 항공권
+        const FlightTicket = ({ data, isPast, isActive, isBoardingExpanded, e, themeBg, currentMins, nowDateObj, tabDateObj, eventId, onExpandSpaceChange }) => {
+            const ticketRef = useRef(null);
+            const [expandTransform, setExpandTransform] = useState('scale(1)');
+            const showPremium = !isPast && (isActive || isBoardingExpanded);
+            const onExpandRef = useRef(onExpandSpaceChange);
+            onExpandRef.current = onExpandSpaceChange;
+
+            useLayoutEffect(() => {
+                const el = ticketRef.current;
+                if (!el) return;
+
+                const computeScale = () => {
+                    if (!isBoardingExpanded) {
+                        setExpandTransform('scale(1)');
+                        onExpandRef.current?.(eventId, 0);
+                        return;
+                    }
+                    const TARGET_SCALE = 1.25;
+                    const cardWidth = el.offsetWidth;
+                    const cardHeight = el.offsetHeight;
+                    const cardRight = el.getBoundingClientRect().right;
+                    const root = el.closest('[data-itinerary-root]');
+                    const minLeft = root
+                        ? root.getBoundingClientRect().left + 16
+                        : cardRight - cardWidth;
+                    const maxScale = (cardRight - minLeft) / cardWidth;
+                    const scale = Math.min(TARGET_SCALE, Math.max(1, maxScale));
+                    setExpandTransform(`scale(${scale.toFixed(3)})`);
+                    onExpandRef.current?.(eventId, cardHeight * (scale - 1));
+                };
+
+                computeScale();
+                window.addEventListener('resize', computeScale);
+                return () => window.removeEventListener('resize', computeScale);
+            }, [isBoardingExpanded, eventId]);
+
+            const ticketSurfaceClass = isPast
+                ? 'bg-slate-50/60 border border-slate-100 opacity-50'
+                : showPremium
+                    ? 'bg-white animate-edge-asiana'
+                    : 'bg-white border border-slate-200 shadow-[0_2px_10px_rgba(0,0,0,0.04)]';
+
+            let progress = 0;
+            let durationLabel = data.duration; // 기본 표시 (예: 2시간 45분)
+
+            if (isPast) {
+                progress = 100; 
+                durationLabel = "비행 완료";
+            } else if (nowDateObj > tabDateObj) {
+                progress = 100; 
+                durationLabel = "비행 완료";
+            } else if (nowDateObj < tabDateObj) {
+                progress = 0; 
+            } else {
+                const depMins = timeToMinutes(data.dep.time);
+                let arrMins = timeToMinutes(data.arr.time);
+                if (arrMins < depMins) arrMins += 24 * 60; 
+                
+                if (currentMins >= arrMins) {
+                    progress = 100; 
+                    durationLabel = "비행 완료";
+                } else if (currentMins <= depMins) {
+                    progress = 0; 
+                } else {
+                    const elapsed = currentMins - depMins;
+                    progress = (elapsed / (arrMins - depMins)) * 100
+	            
+                    if (elapsed === 0) {
+                        durationLabel = "이륙 준비";
+                    } else {
+                        const hours = Math.floor(elapsed / 60);
+			const mins = elapsed % 60;
+			durationLabel = hours > 0 ? `${hours}시간 ${mins}분 경과 ✈️` : `${mins}분 경과 ✈️`;
+                    }
+                }
+            }
+
+            return (
+                <div
+                    ref={ticketRef}
+                    className={`flight-ticket-root relative w-full rounded-[20px] overflow-hidden h-full ${ticketSurfaceClass} ${isBoardingExpanded ? 'is-boarding-expanded' : ''} ${isPast ? 'scale-[0.98]' : ''}`}
+                    style={{
+                        transformOrigin: 'right top',
+                        transform: expandTransform,
+                        transition: 'transform 400ms cubic-bezier(0.25, 0.1, 0.25, 1), opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1)',
+                    }}
+                >
+                    <div className="h-[5px] w-full" 
+                        style={{ 
+                            background: isPast 
+                                ? '#ACA39A' 
+                                : 'linear-gradient(to right, #C40B40 0%, #C40B40 16.66%, #EE1D25 16.66%, #EE1D25 33.33%, #FABE3C 33.33%, #FABE3C 50%, #ACA39A 50%, #ACA39A 66.66%, #5A3E98 66.66%, #5A3E98 83.33%, #2E2E7C 83.33%, #2E2E7C 100%)' 
+                        }}>
+                    </div>
+                    
+                    <div className="p-4 pt-3 pb-3 relative">
+                        {e.isNow && !e.isPast && (
+                            <div className={`absolute top-3 right-4 ${themeBg} text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-sm z-30 animate-pulse-white`}>NOW</div>
+                        )}
+                        {e.isNext && !e.isPast && (
+                            <div className={`absolute top-3 right-4 ${themeBg} text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-sm z-30 tracking-wider`}>NEXT</div>
+                        )}
+
+                        <div className="flex justify-start items-center mb-3 pr-12">
+                            <span className={`text-[12px] font-black tracking-[0.05em] leading-none ${isPast ? 'text-slate-400' : 'text-[#2E2E7C]'}`} style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}>
+                                ASIANA AIRLINES
+                            </span>
+                        </div>
+                        
+                        <div className="flex justify-between items-center">
+                            <div className="flex flex-col flex-1">
+                                <span className={`text-[10px] font-bold mb-0.5 ${isPast ? 'text-slate-400' : 'text-[#ACA39A]'}`}>{data.dep.city}</span>
+                                <span className={`text-[28px] font-black leading-none mb-1 tracking-tighter ${isPast ? 'text-slate-400' : 'text-[#2E2E7C]'}`}>{data.dep.code}</span>
+                                <span className={`text-[16px] font-extrabold leading-none mb-1 ${isPast ? 'text-slate-400' : 'text-[#2E2E7C]'}`}>{data.dep.time}</span>
+                                <span className={`text-[11px] font-semibold ${isPast ? 'text-slate-400' : 'text-slate-500'}`}>{data.dep.term}</span>
+                            </div>
+
+                            <div className="flex flex-col items-center justify-center flex-1 px-1 mt-1">
+                                {/* 👉 비행 시간이 경과됨에 따라 상단 텍스트 유연하게 대응 */}
+                                <span className={`text-[10px] font-bold mb-1 ${isPast ? 'text-slate-400' : 'text-[#ACA39A]'}`}>
+                                    {durationLabel}
+                                </span>
+                                
+                                <div className="w-full relative h-[20px]">
+                                    <div className="absolute inset-0 flex items-center">
+                                        <div className="w-full border-t-[2px] border-dashed border-[#FABE3C]"></div>
+                                    </div>
+                                    <div className="absolute inset-0 mx-[10px]">
+                                        <div 
+                                            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 transition-all duration-1000 ease-out z-10"
+                                            style={{ left: `${progress}%` }}
+                                        >
+                                            <div className={`px-0.5 rounded-full ${isPast ? 'bg-transparent' : 'bg-white'}`}>
+                                                <span className={`text-[15px] drop-shadow-sm ${isPast ? 'opacity-50 grayscale' : 'opacity-90'}`}>✈️</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <span className={`text-[10px] font-bold mt-1 ${isPast ? 'text-slate-400' : 'text-[#2E2E7C]'}`}>{data.type}</span>
+                            </div>
+
+                            <div className="flex flex-col items-end flex-1">
+                                <span className={`text-[10px] font-bold mb-0.5 ${isPast ? 'text-slate-400' : 'text-[#ACA39A]'}`}>{data.arr.city}</span>
+                                <span className={`text-[28px] font-black leading-none mb-1 tracking-tighter ${isPast ? 'text-slate-400' : 'text-[#2E2E7C]'}`}>{data.arr.code}</span>
+                                <span className={`text-[16px] font-extrabold leading-none mb-1 ${isPast ? 'text-slate-400' : 'text-[#2E2E7C]'}`}>{data.arr.time}</span>
+                                <span className={`text-[11px] font-semibold ${isPast ? 'text-slate-400' : 'text-slate-500'}`}>{data.arr.term}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={`p-3 relative border-t-[2px] border-dashed ${isPast ? 'border-slate-200 bg-slate-100' : 'border-slate-200 bg-[#F8F9FA]'}`}>
+                        <div className={`absolute left-[-8px] top-[-9px] w-4 h-4 rounded-full bg-[#F2F2F7] border-r border-b border-slate-200 transform rotate-45`}></div>
+                        <div className={`absolute right-[-8px] top-[-9px] w-4 h-4 rounded-full bg-[#F2F2F7] border-l border-b border-slate-200 transform -rotate-45`}></div>
+
+                        <div className="flex justify-between items-center px-1">
+                            <div className="flex gap-5">
+                                <div className="flex flex-col">
+                                    <span className={`text-[9px] font-bold mb-0.5 ${isPast ? 'text-slate-400' : 'text-[#ACA39A]'}`}>FLIGHT</span>
+                                    <span className={`text-[14px] font-black ${isPast ? 'text-slate-400' : 'text-[#2E2E7C]'}`}>{data.flightNo}</span>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className={`text-[9px] font-bold mb-0.5 ${isPast ? 'text-slate-400' : 'text-[#ACA39A]'}`}>AIRCRAFT</span>
+                                    <span className={`text-[14px] font-black ${isPast ? 'text-slate-400' : 'text-[#2E2E7C]'}`}>{data.aircraft}</span>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-[3px] opacity-40 mix-blend-multiply">
+                                <div className="w-[3px] h-6 bg-[#2E2E7C]"></div>
+                                <div className="w-[1px] h-6 bg-[#2E2E7C]"></div>
+                                <div className="w-[4px] h-6 bg-[#2E2E7C]"></div>
+                                <div className="w-[2px] h-6 bg-[#2E2E7C]"></div>
+                                <div className="w-[1px] h-6 bg-[#2E2E7C]"></div>
+                                <div className="w-[5px] h-6 bg-[#2E2E7C]"></div>
+                                <div className="w-[2px] h-6 bg-[#2E2E7C]"></div>
+                                <div className="w-[3px] h-6 bg-[#2E2E7C]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
         };
 
-        const getOS = () => {
-            const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
-            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) return 'iOS';
-            if (/android/i.test(userAgent)) return 'Android';
-            return 'unknown';
+        const SwipeableCard = ({ e, children, onComplete, onUndo }) => {
+            const [translateX, setTranslateX] = useState(0);
+            const [isSwiping, setIsSwiping] = useState(false);
+            const startXRef = useRef(0);
+
+            const handleTouchStart = (evt) => {
+                startXRef.current = evt.touches[0].clientX;
+                setIsSwiping(true);
+            };
+
+            const handleTouchMove = (evt) => {
+                if (!isSwiping) return;
+                const currentX = evt.touches[0].clientX;
+                const diff = currentX - startXRef.current;
+                
+                if (!e.isPast) {
+                    if (diff > 0 && diff < 120) setTranslateX(diff);
+                } else {
+                    if (diff < 0 && diff > -120) setTranslateX(diff);
+                }
+            };
+
+            const handleTouchEnd = () => {
+                setIsSwiping(false);
+                
+                if (!e.isPast && translateX > 60) {
+                    triggerVibration(40); 
+                    onComplete(); 
+                } else if (e.isPast && translateX < -60) {
+                    triggerVibration(40); 
+                    onUndo(); 
+                }
+                setTranslateX(0); 
+            };
+
+            return (
+                <div className="relative flex-1" style={{ touchAction: 'pan-y' }}>
+                    {!e.isPast && translateX > 5 && (
+                        <div className="absolute inset-y-0 left-0 bg-[#34C759] rounded-[20px] flex items-center pl-4 text-white font-black text-[13px] tracking-wide w-full shadow-inner opacity-90">
+                            ✓ 완료 처리
+                        </div>
+                    )}
+                    {e.isPast && translateX < -5 && (
+                        <div className="absolute inset-y-0 right-0 bg-[#FF9500] rounded-[20px] flex items-center justify-end pr-4 text-white font-black text-[13px] tracking-wide w-full shadow-inner opacity-90">
+                            ↺ 복구하기
+                        </div>
+                    )}
+                    <div 
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                        style={{ 
+                            transform: `translateX(${translateX}px)`, 
+                            transition: isSwiping ? 'none' : 'transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1)' 
+                        }}
+                        className="h-full w-full"
+                    >
+                        {children}
+                    </div>
+                </div>
+            );
         };
 
         function App() {
             const [day, setDay] = useState(0);
             const [activeCard, setActiveCard] = useState(null);
-            
-            // 🚨 실전 배포용: 실제 현재 시간 연동
             const [currentTime, setCurrentTime] = useState(new Date());
             const [isBouncing, setIsBouncing] = useState(false);
-            const [deviceOS, setDeviceOS] = useState('unknown');
+            // ===== 여행 이벤트 =====
+            const [showConfetti, setShowConfetti] = useState(false);
+            const [showSakura, setShowSakura] = useState(false);
+            const [showBeer, setShowBeer] = useState(false);
+            const [showPlaneTakeoff, setShowPlaneTakeoff] = useState(false);
+            const [showPlaneLanding, setShowPlaneLanding] = useState(false);
+            const [eventToast, setEventToast] = useState(null);
+            const [flightBoardingToggle, setFlightBoardingToggle] = useState({});
+            const [flightExpandSpace, setFlightExpandSpace] = useState({});
+            
+            const [manualState, setManualState] = useState(() => {
+                const savedState = localStorage.getItem('sapporoManualState');
+                return savedState ? JSON.parse(savedState) : {};
+            });
 
             useEffect(() => {
-                setDeviceOS(getOS());
-                
+                localStorage.setItem('sapporoManualState', JSON.stringify(manualState));
+            }, [manualState]);
+
+            useEffect(() => {
                 const checkTime = () => setCurrentTime(new Date());
                 const initialNow = new Date();
                 const todayMonth = initialNow.getMonth() + 1;
                 const todayDate = initialNow.getDate();
                 const activeDayIndex = itineraryData.findIndex(d => d.month === todayMonth && d.dateNum === todayDate);
                 
-                if (activeDayIndex !== -1) {
-                    setDay(activeDayIndex);
-                }
+                if (activeDayIndex !== -1) setDay(activeDayIndex);
 
-                const timer = setInterval(checkTime, 60000);
+                const timer = setInterval(checkTime, 10000);
                 return () => clearInterval(timer);
             }, []);
 
@@ -146,86 +943,263 @@
                 setActiveCard(null);
             }, [day]);
 
+            useEffect(() => {
+                const triggerOnce = (key, setter, duration, toastText, toastDelay = 0) => {
+                    if (localStorage.getItem(key)) return;
+                    if (setter) setter(true);
+                    localStorage.setItem(key, "1");
+                    if (toastText) {
+                        setTimeout(() => {
+                            setEventToast(toastText);
+                            setTimeout(() => setEventToast(null), 1800);
+                        }, toastDelay);
+                    }
+                    if (setter) setTimeout(() => setter(false), duration);
+                };
+
+                const month = currentTime.getMonth() + 1;
+                const dateNum = currentTime.getDate();
+                const currentMins = currentTime.getHours() * 60 + currentTime.getMinutes();
+
+                // 🎆 여행 시작 (7/3)
+                if (month === 7 && dateNum === 3) {
+                    triggerOnce("trip_confetti", setShowConfetti, 2600, "삿포로,\n야~호~");
+                }
+
+                // 🛫 한국 출발 (10:15)
+                if (month === 7 && dateNum === 3 && currentMins >= 615) {
+                    triggerOnce("trip_takeoff", setShowPlaneTakeoff, 3200, "이륙,\n야~호~~");
+                }
+
+                // 🌸 일본 도착 (14:00) — 토스트는 벚꽃이 거의 끝날 때
+                if (month === 7 && dateNum === 3 && currentMins >= 840) {
+                    triggerOnce("trip_sakura", setShowSakura, 10000, "ようこそ\n北海道！", 8000);
+                }
+
+                // 🍺 1일차 (7/3 18:00)
+                if (month === 7 && dateNum === 3 && currentMins >= 1080) {
+                    triggerOnce("trip_beer_d1", setShowBeer, 3500, "かんぱーい!");
+                }
+
+                // 🍺 2일차 (7/4 22:30)
+                if (month === 7 && dateNum === 4 && currentMins >= 1350) {
+                    triggerOnce("trip_beer_d2", setShowBeer, 3500, "かんぱーい!");
+                }
+
+                // 🍺 3일차 (7/5 18:00)
+                if (month === 7 && dateNum === 5 && currentMins >= 1080) {
+                    triggerOnce("trip_beer_d3", setShowBeer, 3500, "かんぱーい!");
+                }
+
+                // 🛫 일본 출발 (7/6 14:30)
+                if (month === 7 && dateNum === 6 && currentMins >= 870) {
+                    triggerOnce("trip_depart_jp", setShowPlaneTakeoff, 3200, "日本、\nまたね🥲");
+                }
+
+                // 🛬 한국 도착 (7/6 17:30)
+                if (month === 7 && dateNum === 6 && currentMins >= 1050) {
+                    triggerOnce("trip_landing", setShowPlaneLanding, 3200, "김치찌개\n땡기누..🤤🍲");
+                }
+            }, [currentTime]);
+
+            const handleEventComplete = (eventId) => {
+                setManualState(prev => ({ ...prev, [eventId]: 'completed' }));
+            };
+
+            const handleEventUndo = (eventId) => {
+                setManualState(prev => ({ ...prev, [eventId]: 'uncompleted' }));
+            };
+
             const year = currentTime.getFullYear();
-            const tripDay1Start = new Date(year, 6, 3, 14, 0, 0); 
             const month = currentTime.getMonth() + 1;
             const dateNum = currentTime.getDate();
+            const currentMins = currentTime.getHours() * 60 + currentTime.getMinutes();
 
             let statusText = "";
             let badgeClasses = "";
-            let showPulse = false;
+            let badgeDotColor = "bg-[#FF2D55]";
+            let isPulsing = false;
 
-            // D-Day 뱃지 스타일 고도화 (입체감 있는 디자인)
-            if (currentTime < tripDay1Start) {
+            // 1. 여행 출발 전 (7월 3일 이전)
+            if (month < 7 || (month === 7 && dateNum < 3)) {
                 const todayDateOnly = new Date(year, currentTime.getMonth(), dateNum);
                 const tripStartDateOnly = new Date(year, 6, 3);
-                const diffTime = tripStartDateOnly.getTime() - todayDateOnly.getTime();
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                const diffDays = Math.ceil((tripStartDateOnly - todayDateOnly) / (1000 * 60 * 60 * 24));
                 
-                if (diffDays > 0) {
-                    statusText = `D-${diffDays} 설레는 여행 준비`;
-                    badgeClasses = "bg-[#FF2D55] text-white shadow-[0_4px_12px_rgba(255,45,85,0.35)] border border-white/20";
-                } else {
-                    statusText = `오늘 출발! ✈️`;
-                    badgeClasses = "bg-[#FF9500] text-white shadow-[0_4px_12px_rgba(255,149,0,0.35)] border border-white/20";
-                    showPulse = true;
+                statusText = `출발까지 ${diffDays}일!`;
+                badgeClasses = "bg-white text-[#2E2E7C] border-[1.5px] border-[#2E2E7C] shadow-sm";
+                badgeDotColor = "bg-[#2E2E7C]";
+            } 
+            // 2. 여행 중 (7월 3일 ~ 7월 6일)
+            else if (month === 7 && dateNum >= 3 && dateNum <= 6) {
+                badgeClasses = "bg-[#007AFF] text-white shadow-[0_4px_12px_rgba(0,122,255,0.35)] border border-white/10";
+                badgeDotColor = "bg-white"; // 파란 배경에는 흰색 점
+                isPulsing = true;
+                
+                if (dateNum === 3) {
+                    if (currentMins < 13 * 60) { // 오후 1시 도착 전
+                        statusText = "일본 드가자~ 🛫";
+                        badgeClasses = "bg-[#FF9500] text-white shadow-[0_4px_12px_rgba(255,149,0,0.35)] border border-white/10";
+                    } else {
+                        statusText = "삿포로 1일차";
+                    }
+                } else if (dateNum === 4) {
+                    statusText = "삿포로 2일차";
+                } else if (dateNum === 5) {
+                    statusText = "삿포로 3일차";
+                } else if (dateNum === 6) {
+                    if (currentMins < 14 * 60 + 30) { // 오후 2시 30분 이륙 전
+                        statusText = "삿포로 4일차";
+                    } else if (currentMins < 17 * 60 + 30) { // 오후 5시 30분 도착 전
+                        statusText = "한국 드가자~ 🛬";
+                        badgeClasses = "bg-[#FF9500] text-white shadow-[0_4px_12px_rgba(255,149,0,0.35)] border border-white/10";
+                    } else {
+                        statusText = "집가서 쉬자 🏠";
+                        badgeClasses = "bg-[#E5E5EA] text-[#8E8E93]";
+                        badgeDotColor = "bg-[#8E8E93]";
+                        isPulsing = false;
+                    }
                 }
-            } else if (month === 7 && dateNum >= 3 && dateNum <= 6) {
-                let dayStr = dateNum === 6 ? "마지막 날" : `${dateNum - 2}일차`;
-                statusText = `여행 중 (${dayStr})`;
-                badgeClasses = "bg-[#007AFF] text-white shadow-[0_4px_12px_rgba(0,122,255,0.35)] border border-white/20";
-                showPulse = true;
-            } else {
-                statusText = "여행 완료";
+            } 
+            // 3. 여행 종료 (7월 6일 오후 5시 30분 이후)
+            else {
+                statusText = "집가서 쉬자 🏠";
                 badgeClasses = "bg-[#E5E5EA] text-[#8E8E93]";
+                badgeDotColor = "bg-[#8E8E93]";
+                isPulsing = false;
             }
 
-            const isToday = itineraryData[day].month === (currentTime.getMonth() + 1) && itineraryData[day].dateNum === currentTime.getDate();
-            const currentMins = currentTime.getHours() * 60 + currentTime.getMinutes();
-
             const handleBadgeClick = () => {
-                if (isBouncing) return;
-                setIsBouncing(true);
-                setTimeout(() => setIsBouncing(false), 500); 
-            };
+            		  playBadgeSound(); // 🌟 새로운 뾰로롱 소리 적용
+            		  triggerVibration([20, 50, 20]); // 🌟 진동도 리듬감 있게!
+            		  setIsBouncing(false);
+            		  setTimeout(() => setIsBouncing(true), 10);
+       		   };
+ 
 
-            const getLensAppUrl = () => {
-                if (deviceOS === 'iOS') {
-                    return "googleapp://lens"; 
+	    
+
+            const handleCardClick = (eventId, isFlight, event) => {
+                if (isFlight) {
+                    playAirplaneSound();
+                    triggerVibration(60);
+                    const nowDateObj = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
+                    if (isFlightDeparted(event.flightData, event.isPast, currentMins, nowDateObj, event.tabDateObj)) return;
+                    setFlightBoardingToggle(prev => {
+                        const expanded = getBoardingExpanded(event, prev);
+                        return { ...prev, [eventId]: !expanded };
+                    });
                 } else {
-                    return "intent://lens.google.com/#Intent;package=com.google.android.googlequicksearchbox;scheme=https;end";
+                    playBubbleSound();
+                    triggerVibration(15);
+                    setActiveCard(activeCard === eventId ? null : eventId);
                 }
             };
 
-            const getFlightUrl = () => {
-                if (deviceOS === 'iOS') {
-                    return "flyasiana://";
-                } else {
-                    return "intent://#Intent;package=com.asiana.flyasiana;scheme=flyasiana;end";
-                }
+            const handleFlightExpandSpace = useCallback((eventId, space) => {
+                setFlightExpandSpace(prev => {
+                    if (prev[eventId] === space) return prev;
+                    return { ...prev, [eventId]: space };
+                });
+            }, []);
+
+            const getBoardingExpanded = (e, toggleMap = flightBoardingToggle) => {
+                if (!e.isFlight) return false;
+                const nowDateObj = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
+                if (isFlightDeparted(e.flightData, e.isPast, currentMins, nowDateObj, e.tabDateObj)) return false;
+                const manual = toggleMap[e.uniqueEventId];
+                if (manual === true) return true;
+                if (manual === false) return false;
+                return isInBoardingWindow(e.flightData, currentMins, nowDateObj, e.tabDateObj);
             };
+
+            let globalHasActiveNow = false;
+            const allEventsEvaluated = itineraryData.map((d, dIndex) => {
+                const tabDateObj = new Date(year, d.month - 1, d.dateNum);
+                return d.events.map((e, eIndex, arr) => {
+                    const uniqueEventId = `${dIndex}-${eIndex}`;
+                    let isNow = false;
+                    let isPast = false;
+
+                    const eventMins = timeToMinutes(e.time);
+                    const nextEventMins = eIndex < arr.length - 1 ? timeToMinutes(arr[eIndex + 1].time) : 24 * 60;
+
+                    let naturalIsPast = false;
+                    let naturalIsNow = false;
+
+                    const nowDateObj = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
+
+                    if (nowDateObj > tabDateObj) {
+                        naturalIsPast = true; 
+                    } else if (nowDateObj < tabDateObj) {
+                        naturalIsPast = false; 
+                    } else {
+                        if (currentMins >= nextEventMins) naturalIsPast = true;
+                        else if (currentMins >= eventMins && currentMins < nextEventMins) naturalIsNow = true;
+                    }
+
+                    if (manualState[uniqueEventId] === 'completed') {
+                        isPast = true;
+                    } else if (manualState[uniqueEventId] === 'uncompleted') {
+                        isPast = false;
+                        isNow = naturalIsNow; 
+                    } else {
+                        isPast = naturalIsPast;
+                        isNow = naturalIsNow;
+                    }
+
+                    if (isNow && !isPast) {
+                        globalHasActiveNow = true;
+                    }
+
+                    return { ...e, uniqueEventId, originalIndex: eIndex, isNow, isPast, dayIndex: dIndex, tabDateObj };
+                });
+            }).flat();
+
+            let globalNextEventId = null;
+            if (!globalHasActiveNow) {
+                const nextEvent = allEventsEvaluated.find(e => !e.isPast);
+                if (nextEvent) {
+                    globalNextEventId = nextEvent.uniqueEventId;
+                }
+            }
+
+            const currentDayEvents = allEventsEvaluated.filter(e => e.dayIndex === day);
+            const processedEvents = currentDayEvents.map(e => ({
+                ...e,
+                isNext: e.uniqueEventId === globalNextEventId
+            }));
+
+            const activeAndFuture = processedEvents.filter(e => !e.isPast);
+            const pastEvents = processedEvents.filter(e => e.isPast);
+            const renderedEvents = [...activeAndFuture, ...pastEvents];
 
             return (
-                <div className="max-w-md mx-auto min-h-screen relative p-4 pb-24 overflow-hidden">
+                <>
+                <div className="max-w-md mx-auto min-h-screen relative p-4 pb-12 overflow-hidden" data-itinerary-root>
                     <header className="mb-6 mt-4">
                         <div className="flex justify-between items-end mb-5 px-1">
-                            <h1 className="text-[26px] font-extrabold text-slate-900 tracking-tight pl-1">🇯🇵 삿포로 여행</h1>
+                            <h1 className="text-[26px] font-extrabold text-[#2E2E7C] tracking-tight pl-1">🇯🇵 삿포로 여행</h1>
                             
                             <div 
                                 onClick={handleBadgeClick}
-                                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full cursor-pointer select-none transition-all duration-300 ${badgeClasses} ${isBouncing ? 'animate-bounce-fun' : ''}`}
+                                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full cursor-pointer select-none transition-colors duration-200 ${badgeClasses} ${isBouncing ? 'animate-bounce-fun' : ''}`}
                             >
-                                {showPulse && <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-ring-white"></div>}
-                                <span className="text-[12px] font-extrabold tracking-wide drop-shadow-sm">{statusText}</span>
+                                <div className={`w-2 h-2 rounded-full ${badgeDotColor} ${isPulsing ? 'animate-pulse-white' : ''}`}></div>
+                                <span className="text-[11px] font-bold tracking-wide">{statusText}</span>
                             </div>
                         </div>
                         
-                        <div className="flex bg-[#E5E5EA] p-1 rounded-xl">
+                        <div className="flex bg-[#E5E5EA] p-1 rounded-xl overflow-x-auto scrollbar-hide">
                             {itineraryData.map((d, i) => (
                                 <button 
                                     key={i} 
-                                    onClick={() => setDay(i)} 
-                                    className={`flex-1 py-1.5 rounded-lg text-[13px] font-semibold transition-all duration-200 ${day === i ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                                    onClick={() => {
+                                        playTabSound(); 
+                                        triggerVibration(15); 
+                                        setDay(i);
+                                    }} 
+                                    className={`flex-1 py-1.5 rounded-lg text-[13px] font-semibold transition-all duration-200 whitespace-nowrap px-3 ${day === i ? 'bg-white text-[#2E2E7C] shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
                                 >
                                     {d.date}
                                 </button>
@@ -233,107 +1207,207 @@
                         </div>
                     </header>
 
-                    <div className="animate-fade-in-up flex flex-col" key={day}>
-                        {itineraryData[day].events.map((e, i) => {
-                            const isFlight = e.isFlight;
+                    <div className="animate-fade-in-up flex flex-col overflow-visible" key={day}>
+                        {renderedEvents.map((e, index) => {
                             const isKR = e.country === "KR";
+                            const isJP = e.country === "JP";
                             const noMap = e.noMap;
-                            const isManuallyActive = activeCard === i;
+                            const isManuallyActive = !e.isFlight && activeCard === e.uniqueEventId;
+                            const isActive = isManuallyActive || e.isNow || e.isNext;
+                            const isBoardingExpanded = e.isFlight ? getBoardingExpanded(e) : false;
+                            const flightExtraSpace = e.isFlight ? (flightExpandSpace[e.uniqueEventId] || 0) : 0;
 
-                            let isNow = false;
-                            if (isToday) {
-                                const eventMins = timeToMinutes(e.time);
-                                const nextEventMins = i < itineraryData[day].events.length - 1 ? timeToMinutes(itineraryData[day].events[i+1].time) : 24 * 60;
-                                if (currentMins >= eventMins && currentMins < nextEventMins) {
-                                    isNow = true;
-                                }
-                            }
-
-                            const isActive = isManuallyActive || isNow;
-
-                            const query = encodeURIComponent(e.mapQuery || e.title);
+                            const themeColor = isKR ? "text-[#FF2D55]/80" : "text-[#007AFF]/80";
+                            const themeBg = isKR ? "bg-[#FF2D55]" : "bg-[#007AFF]";
+                            const themeLightBg = isKR ? "bg-[#FF2D55]/10" : "bg-[#007AFF]/10";
+                            const themeHoverBg = isKR ? "hover:bg-[#FF2D55]/20" : "hover:bg-[#007AFF]/20";
+                            const themeFocusClass = isKR ? "focus-card-red" : "focus-card-blue";
+                            const themeLine = isKR ? "bg-[#FF2D55]/30" : "bg-[#007AFF]/30";
                             
-                            // customSearchUrl, customDirUrl 이 명시되어 있으면 최우선으로 적용 (인천공항 등)
+                            const query = encodeURIComponent(e.mapQuery || e.title);
                             const searchUrl = e.customSearchUrl ? e.customSearchUrl : (e.customUrl ? e.customUrl : `https://www.google.com/maps/search/?api=1&query=${query}`);
                             const dirUrl = e.customDirUrl ? e.customDirUrl : `https://www.google.com/maps/dir/?api=1&destination=${query}`;
+                            
+                            let emojiContainerClass = `w-[42px] h-[42px] rounded-full bg-white flex items-center justify-center text-xl shadow-sm border-[2px] transition-all duration-200 ease-out `;
+                            if (e.isPast) {
+                                emojiContainerClass += "border-slate-100 bg-slate-50/50 opacity-40 scale-95";
+                            } else if (isActive) {
+                                if (e.isFlight) {
+                                    emojiContainerClass += "animate-edge-asiana scale-110 z-20"; 
+                                } else if (isJP) {
+                                    emojiContainerClass += "focus-emoji-blue scale-110";
+                                } else if (isKR) {
+                                    emojiContainerClass += "focus-emoji-red scale-110";
+                                }
+                            } else {
+                                emojiContainerClass += "border-slate-200 group-hover:scale-105";
+                            }
 
                             return (
                                 <div 
-                                    key={i} 
-                                    className="flex gap-3 relative py-3 cursor-pointer group"
-                                    onClick={() => setActiveCard(isManuallyActive ? null : i)}
+                                    key={e.uniqueEventId} 
+                                    className={`flex gap-3 relative py-3 cursor-pointer group ${e.isFlight && isBoardingExpanded ? 'flight-row-expanded' : ''} ${isManuallyActive ? 'animate-bounce-fun' : ''}`}
+                                    style={e.isFlight ? {
+                                        paddingBottom: 12 + flightExtraSpace,
+                                        transition: 'padding-bottom 400ms cubic-bezier(0.25, 0.1, 0.25, 1)',
+                                    } : undefined}
+                                    onClick={() => handleCardClick(e.uniqueEventId, e.isFlight, e)} 
                                 >
-                                    {i !== itineraryData[day].events.length - 1 && (
-                                        <div className={`absolute top-[70px] bottom-[-12px] left-[27px] w-[2px] z-0 transition-colors ${isNow ? 'bg-[#007AFF]/30' : 'bg-slate-200'}`}></div>
+                                    {index !== renderedEvents.length - 1 && (
+                                        <div className={`absolute top-[70px] bottom-[-12px] left-[27px] w-[2px] z-0 transition-all duration-[400ms] ease-out ${e.isNow ? themeLine : 'bg-slate-200'} ${e.isFlight && isBoardingExpanded ? 'opacity-0' : ''}`}></div>
                                     )}
 
-                                    <div className="w-[56px] flex flex-col items-center flex-shrink-0 z-10 pt-1 relative">
-                                        <span className={`text-[15px] font-black mb-2 tracking-tighter transition-colors duration-300 ${isActive ? 'text-[#007AFF]' : 'text-slate-800'}`}>
+                                    <div className={`w-[56px] flex flex-col items-center flex-shrink-0 z-10 pt-1 relative flight-timeline-col ${e.isFlight && isBoardingExpanded ? 'is-covered' : ''}`}>
+                                        <span className={`text-[15px] font-black mb-2 tracking-tighter transition-colors duration-200 ${e.isPast ? 'text-slate-300' : 'text-[#2E2E7C]'}`}>
                                             {e.time}
                                         </span>
                                         
-                                        {isNow && !isManuallyActive && (
-                                            <div className="absolute -top-2 bg-[#007AFF] text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-sm z-20">
-                                                NOW
-                                            </div>
-                                        )}
-
-                                        <div className={`w-[42px] h-[42px] rounded-full bg-white flex items-center justify-center text-xl shadow-sm border-[2px] transition-all duration-400 ease-out ${isActive ? 'border-[#007AFF] scale-125 rotate-12' : 'border-slate-200 group-hover:scale-105'} ${isNow && !isManuallyActive ? 'animate-pulse-ring' : ''}`}>
+                                        <div className={emojiContainerClass}>
                                             {e.emoji}
                                         </div>
                                     </div>
                                     
-                                    <div className={`flex-1 bg-white p-4 rounded-[20px] border flex justify-between items-center transition-all duration-400 ease-out origin-left ${isActive ? 'scale-[1.03] shadow-[0_12px_30px_rgba(0,122,255,0.15)] border-[#007AFF] ring-4 ring-[#007AFF]/10 z-20' : 'scale-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] border-slate-100 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]'}`}>
-                                        <div className="flex-1 pr-3">
-                                            <div className="mb-2">
-                                                <span className="text-[10px] px-2 py-0.5 rounded font-bold tracking-wider bg-slate-100 text-slate-500">
-                                                    {isKR ? '🇰🇷 KR' : '🇯🇵 JP'}
-                                                </span>
-                                            </div>
-                                            <h3 className="font-bold text-slate-900 text-[15px] leading-tight mb-1">{e.title}</h3>
-                                            <p className="text-[13px] text-slate-500 leading-snug break-keep">{e.desc}</p>
-                                        </div>
-                                        
-                                        {!noMap && (
-                                            <div className="flex gap-1.5 flex-shrink-0">
-                                                <a 
-                                                    href={isFlight ? getFlightUrl() : searchUrl} 
-                                                    target={isFlight ? "_self" : "_blank"} 
-                                                    rel="noopener noreferrer"
-                                                    onClick={(event) => event.stopPropagation()}
-                                                    className="w-9 h-9 rounded-full flex items-center justify-center transition-colors bg-[#007AFF]/10 text-[#007AFF] hover:bg-[#007AFF]/20"
-                                                >
-                                                    {isFlight ? <PlaneIcon /> : <MapPin />}
-                                                </a>
-                                                {!isFlight && (
-                                                    <a 
-                                                        href={dirUrl} 
-                                                        target="_blank" 
-                                                        rel="noopener noreferrer"
-                                                        onClick={(event) => event.stopPropagation()}
-                                                        className="w-9 h-9 rounded-full flex items-center justify-center transition-colors bg-[#007AFF]/10 text-[#007AFF] hover:bg-[#007AFF]/20"
-                                                    >
-                                                        <DirectionsIcon />
-                                                    </a>
+                                    <SwipeableCard 
+                                        e={e} 
+                                        onComplete={() => handleEventComplete(e.uniqueEventId)}
+                                        onUndo={() => handleEventUndo(e.uniqueEventId)}
+                                    >
+                                        {e.isFlight ? (
+                                            <FlightTicket 
+                                                data={e.flightData} 
+                                                isPast={e.isPast} 
+                                                isActive={isActive} 
+                                                isBoardingExpanded={isBoardingExpanded}
+                                                e={e} 
+                                                themeBg={themeBg} 
+                                                currentMins={currentMins} 
+                                                nowDateObj={new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate())} 
+                                                tabDateObj={e.tabDateObj}
+                                                eventId={e.uniqueEventId}
+                                                onExpandSpaceChange={handleFlightExpandSpace}
+                                            />
+                                        ) : (
+                                            <div className={`relative p-4 rounded-[20px] transition-all duration-200 ease-out h-full ${e.isPast ? 'bg-slate-50/60 border border-slate-100 shadow-none opacity-40 scale-[0.98]' : (isActive ? `bg-white scale-[1.02] ${themeFocusClass} z-20` : 'bg-white scale-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-slate-100 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]')}`}>
+                                                
+                                                {e.isNow && !e.isPast && (
+                                                    <div className={`absolute top-3 right-4 ${themeBg} text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-sm z-30 animate-pulse-white`}>
+                                                        NOW
+                                                    </div>
                                                 )}
+
+                                                {e.isNext && !e.isPast && (
+                                                    <div className={`absolute top-3 right-4 ${themeBg} text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-sm z-30 tracking-wider`}>
+                                                        NEXT
+                                                    </div>
+                                                )}
+
+                                                <div className="flex justify-between items-center w-full">
+                                                    <div className="flex-1 pr-3">
+                                                        <div className="mb-2">
+                                                            <span className={`text-[11px] px-2.5 py-0.5 rounded-full font-bold tracking-wider inline-flex items-center gap-1 shadow-sm ${e.isPast ? 'bg-slate-200 text-slate-400' : 'bg-slate-100 text-slate-500'}`}>
+                                                                <span className="text-[14px]">{isKR ? '🇰🇷' : '🇯🇵'}</span>
+                                                                <span>{isKR ? 'KR' : 'JP'}</span>
+                                                            </span>
+                                                        </div>
+                                                        <h3 className={`font-bold text-[15px] leading-tight mb-1 ${(e.isNow || e.isNext) ? 'pr-10' : ''} ${e.isPast ? 'text-slate-400 line-through' : 'text-[#2E2E7C]'}`}>{e.title}</h3>
+                                                        <p className={`text-[13px] leading-snug break-keep ${e.isPast ? 'text-slate-300' : 'text-slate-500'}`}>{e.desc}</p>
+                                                    </div>
+                                                    
+                                                    {!noMap && !e.isPast && (
+                                                        <div className="flex gap-1.5 flex-shrink-0 z-10">
+                                                            <a 
+                                                                href={searchUrl} 
+                                                                target="_blank" 
+                                                                rel="noopener noreferrer"
+                                                                onClick={(event) => {
+                                                                    event.stopPropagation();
+                                                                    playMapSound(); 
+                                                                    triggerVibration(15);
+                                                                }}
+                                                                className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${themeLightBg} ${themeColor} ${themeHoverBg}`}
+                                                            >
+                                                                <MapPin />
+                                                            </a>
+                                                            {!e.hideDir && (
+                                                                <a 
+                                                                    href={dirUrl} 
+                                                                    target="_blank" 
+                                                                    rel="noopener noreferrer"
+                                                                    onClick={(event) => {
+                                                                        event.stopPropagation();
+                                                                        playMapSound(); 
+                                                                        triggerVibration(15);
+                                                                    }}
+                                                                    className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${themeLightBg} ${themeColor} ${themeHoverBg}`}
+                                                                >
+                                                                    <DirectionsIcon />
+                                                                </a>
+                                                            )}
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                         )}
-                                    </div>
+                                    </SwipeableCard>
                                 </div>
                             );
                         })}
                     </div>
 
-                    <a 
-                        href={getLensAppUrl()}
-                        target="_self"
-                        rel="noopener noreferrer"
-                        className="fixed bottom-8 right-6 w-14 h-14 bg-[#007AFF] text-white rounded-full shadow-[0_4px_16px_rgba(0,122,255,0.4)] flex items-center justify-center hover:scale-105 active:scale-95 transition-transform z-50 lg:right-[calc(50%-200px)]"
-                        title="카메라 번역 렌즈 열기"
-                    >
-                        <CameraIcon />
-                    </a>
+                    {showConfetti &&
+                        [...Array(35)].map((_, i) => (
+                            <div
+                                key={"c" + i}
+                                className="confetti-piece"
+                                style={{
+                                    left: `${Math.random() * 100}%`,
+                                    background: ["#FF3B30", "#FF9500", "#FFD60A", "#34C759", "#007AFF", "#AF52DE"][i % 6],
+                                    animationDelay: `${Math.random() * 0.4}s`
+                                }}
+                            />
+                        ))
+                    }
+
+                    {showSakura &&
+                        [...Array(30)].map((_, i) => (
+                            <div
+                                key={"s" + i}
+                                className="sakura"
+                                style={{
+                                    left: `${Math.random() * 100}%`,
+                                    fontSize: `${18 + Math.random() * 12}px`,
+                                    animationDuration: `${4 + Math.random() * 3}s`,
+                                    animationDelay: `${Math.random() * 2}s`
+                                }}
+                            >
+                                🌸
+                            </div>
+                        ))
+                    }
+
+                    {showBeer &&
+                        <div className="beer-cheers">
+                            <div className="beer-popup beer-popup-left">🍺</div>
+                            <div className="beer-popup beer-popup-center">🍺</div>
+                            <div className="beer-popup beer-popup-right">🍺</div>
+                        </div>
+                    }
+
+                    {eventToast &&
+                        <div className="event-toast"
+                             key={eventToast}
+                             style={{ whiteSpace: "pre-line" }}>{eventToast}</div>
+                    }
                 </div>
+
+                {showPlaneTakeoff &&
+                    <div className="plane-takeoff">✈️</div>
+                }
+
+                {showPlaneLanding &&
+                    <div className="plane-landing">🛬</div>
+                }
+                </>
             );
         }
         ReactDOM.createRoot(document.getElementById('root')).render(<App />);
