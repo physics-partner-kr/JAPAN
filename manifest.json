@@ -1,0 +1,20 @@
+{
+  "name": "삿포로 여행 일정표",
+  "short_name": "삿포로여행",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#F2F2F7",
+  "theme_color": "#2E2E7C",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

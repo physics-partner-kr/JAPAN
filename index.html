@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>삿포로 모바일 일정표</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/512px-Flag_of_Japan.svg.png">
-    
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <link rel="apple-touch-icon" href="./icon-512.png">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#2E2E7C">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -284,9 +285,10 @@
         // 7월 3일부터 7월 6일까지의 깔끔한 최종 일정
         const itineraryData = [
             { id: 0, day: "Day 1", date: "7/3 금", month: 7, dateNum: 3, events: [
-                { 
-                    time: "07:30", title: "인천공항 도착 (T2)", desc: "제2여객터미널 도착 및 탑승 준비", 
-                    country: "KR", emoji: "🛫", mapQuery: "인천국제공항 제2여객터미널", hideDir: true 
+                {
+                    time: "07:30", title: "인천공항 도착 (T2)", desc: "제2여객터미널 도착 및 탑승 준비",
+                    country: "KR", emoji: "🛫", mapQuery: "인천국제공항 제2여객터미널", hideDir: true,
+                    customUrl: "https://map.naver.com/p/search/인천국제공항%20제2여객터미널"
                 },
                 { time: "08:30", title: "면세품 인도 및 식사", desc: "", country: "KR", noMap: true, emoji: "🛍️" },
                 { 
@@ -1074,6 +1076,18 @@
             );
         }
         ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script> <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker 등록 성공!', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker 등록 실패:', error);
+                    });
+            });
+        }
     </script>
-</body>
+    </body>
 </html>
